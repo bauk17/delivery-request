@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.caua.deliveryrequest.domain.User;
+import com.caua.deliveryrequest.dto.UserDTO;
 import com.caua.deliveryrequest.repository.UserRepository;
 import com.caua.deliveryrequest.services.exception.ObjectNotFoundException;
 
@@ -22,5 +23,13 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Object not found! ID: " + id));
 
+    }
+
+    public User createNewUser(User obj) {
+        return userRepository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto) {
+        return new User(objDto.getEmail(), objDto.getId(), objDto.getName());
     }
 }
